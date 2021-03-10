@@ -15,7 +15,6 @@ figure;
 
 % While the mission is not completed
 while ~mis_completed(theMission)
-
     % Get the current goal
     [theMission,theGoal]=mis_getgoal(theMission,theRobot.thePose,theRobot.theAltitude);
 

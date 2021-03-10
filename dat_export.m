@@ -81,7 +81,7 @@ function dat_export(dataSet)
 
     read_and_replace('base_readme.txt',theReplacements,fullfile(dataSet.folderName,'README.TXT'));
     pbr_end('');
-    
+
     % Save the mat file
     pbr_init('SAVING MAT FILE');
     save(fullfile(dataSet.folderName,'dataSet.mat'),'dataSet');

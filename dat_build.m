@@ -37,8 +37,6 @@ function dataSet=dat_build(dataSet)
     end
     pbr_end(sprintf(' N. IMAGES : %d',size(dataSet.viewPortList,2)));
 
-
-
     % Compute overlap matrix
     pbr_init('COMPUTING OVERLAP MATRIX');
     numViewPorts=size(dataSet.viewPortList,2);
