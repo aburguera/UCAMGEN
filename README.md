@@ -37,7 +37,7 @@ Then you will have to wait. Please take into account that the execution time can
 
 After finishing, the dataset will be within the folder specified in the parameter folderName. A README file will also be created explaining the contents of the dataset.
 
-If the program raises en error while COMPUTING VIEWPORTS, this means that one viewpoint partially lies outside the world image. Try modifying the mission or reducing the altitude. If the program suddenly stops (without an error) while COMPUTING VIEWPORTS is performed, this is probably due to an unachievable mission. Try to increase the mission tolerance.
+If the program raises en error while COMPUTING VIEWPORTS, this means that one viewport partially lies outside the world image. Try modifying the mission or reducing the altitude. If the program suddenly stops (without an error) while COMPUTING VIEWPORTS is performed, this is probably due to an unachievable mission. Try to increase the mission tolerance.
 
 ## Requirements
 
