@@ -65,9 +65,15 @@ function dat_export(dataSet)
     writematrix(round(dataSet.thePoses,4),fullfile(dataSet.folderName,'POSES.csv'));
     pbr_end('');
 
+    % Export extra parameters
+    pbr_init('EXPORTING PARAMETERS')
+    img2World=2*dataSet.theCamera.tanHalfOpening/dataSet.theCamera.outSize(2);
+    extraParameters=[dataSet.theCamera.xOpening,img2World];
+    writematrix(extraParameters,fullfile(dataSet.folderName,'PARAMS.csv'));
+    pbr_end('')
+    
     % Export the readme
     pbr_init('EXPORTING README');
-    img2World=2*dataSet.theCamera.tanHalfOpening/dataSet.theCamera.outSize(2);
     world2Img=1/img2World;
     theReplacements={{'##DATASETNAME##',dataSet.folderName},
                      {'##NIMAGES##',string(numViewPorts)},

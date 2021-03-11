@@ -23,7 +23,7 @@ STRUCTURE
 * IMGRPOSH.csv(FILE) : The H component of the IMGRPOS matrix. Redundant. Provided to make it easy to read it.
 * ODOM.csv    (FILE) : Relative motion between consecutive viewports in CSV format. The i-th column stores the motion from VIEWPORTi-1 to VIEWPORTi. The first column stores the absolute pose of VIEWPORT1. Each column stores [deltaX,deltaY,deltaO,deltaH] which are the change in X, Y, orientation and altitude.
 * POSES.csv   (FILE) : Absolute pose of all viewports stored in the same orther in which they were acquired. The format is the same as ODOC.csv except that poses are absolute here. Note that ODOM.csv and POSES.csv actually contain redundant information.
-
+* PARAMS.csv  (FILE) : Two comma separated values: the camera opening in radians (##HOPENING## in this case) and the image to world conversion factor (##IMG2WORLD## in this case) which has to be multiplied times the altitude to do the conversion.
 
 CITATION
 ========
