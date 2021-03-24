@@ -42,18 +42,24 @@ function dataSet=dat_build(dataSet)
     numViewPorts=size(dataSet.viewPortList,2);
     dataSet.overlapMatrix=eye(numViewPorts);
     for i=1:numViewPorts-1
+        bboxi=dataSet.viewPortList(i).boundingBox;
         poli=dataSet.viewPortList(i).theRect;
         poli(:,end+1)=poli(:,1);
         shapei=polyshape(poli(1,:),poli(2,:));
         areai=area(shapei);
         for j=i+1:numViewPorts
-            polj=dataSet.viewPortList(j).theRect;
-            polj(:,end+1)=polj(:,1);
-            shapej=polyshape(polj(1,:),polj(2,:));
-            shapeint=intersect(shapei,shapej);
-            areaj=area(shapej);
-            areaint=area(shapeint);
-            theOverlap=areaint/(areai+areaj-areaint);
+            bboxj=dataSet.viewPortList(j).boundingBox;
+            if (bboxi(4)<bboxj(3))||(bboxi(3)>bboxj(4))||(bboxi(2)<bboxj(1))||(bboxi(1)>bboxj(2))
+                theOverlap=0;
+            else
+                polj=dataSet.viewPortList(j).theRect;
+                polj(:,end+1)=polj(:,1);
+                shapej=polyshape(polj(1,:),polj(2,:));
+                shapeint=intersect(shapei,shapej);
+                areaj=area(shapej);
+                areaint=area(shapeint);
+                theOverlap=areaint/(areai+areaj-areaint);
+            end
             dataSet.overlapMatrix(i,j)=theOverlap;
             dataSet.overlapMatrix(j,i)=theOverlap;
         end
