@@ -3,7 +3,7 @@
 % Input       : dataSet - dataset data structure. Must be already built
 %                         using dat_build()
 % Author      : Antoni Burguera (2021) - antoni dot burguera at uib dot es
-function dat_export(dataSet)
+function dataSet=dat_export(dataSet)
     if exist(dataSet.folderName,'dir')
         error('[ ERROR ] FOLDER %s ALREADY EXISTS. ABORTING\n',folderName);
     end
@@ -32,26 +32,12 @@ function dat_export(dataSet)
 
     % Export motion matrix
     pbr_init('EXPORTING MOTION MATRIX');
-    outFile=fopen(fullfile(dataSet.folderName,'IMGRPOS.csv'),'wt');
-    nRows=size(dataSet.motionMatrix,1);
-    nCols=size(dataSet.motionMatrix,2);
-    for r=1:nRows
-        rowTxt='';
-        for c=1:nCols
-            curMotion=dataSet.motionMatrix(r,c,:);
-            % Motion is x#y#o#h
-            rowTxt=[rowTxt,sprintf('%.4f#%.4f#%.4f#%.4f,',curMotion(1),curMotion(2),curMotion(3),curMotion(4))];
-        end
-        rowTxt=sprintf('%s\n',rowTxt(1:end-1));
-        fprintf(outFile,rowTxt);
-        if mod(r,10)==0
-            pbr_update(r,nRows);
-        end
-    end
-    fclose(outFile);
     writematrix(dataSet.motionMatrix(:,:,1),fullfile(dataSet.folderName,'IMGRPOSX.csv'));
+    pbr_update(1,4);
     writematrix(dataSet.motionMatrix(:,:,2),fullfile(dataSet.folderName,'IMGRPOSY.csv'));
+    pbr_update(2,4);
     writematrix(dataSet.motionMatrix(:,:,3),fullfile(dataSet.folderName,'IMGRPOSO.csv'));
+    pbr_update(3,4);
     writematrix(dataSet.motionMatrix(:,:,4),fullfile(dataSet.folderName,'IMGRPOSH.csv'));
     pbr_end('');
 
@@ -86,10 +72,5 @@ function dat_export(dataSet)
                      {'##WORLD2IMG##',sprintf('%.6f / altitude',world2Img)}};
 
     read_and_replace('base_readme.txt',theReplacements,fullfile(dataSet.folderName,'README.TXT'));
-    pbr_end('');
-
-    % Save the mat file
-    pbr_init('SAVING MAT FILE');
-    save(fullfile(dataSet.folderName,'dataSet.mat'),'dataSet');
     pbr_end('');
 return;

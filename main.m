@@ -12,7 +12,7 @@ dataSet=dat_init(theParams);
 dataSet=dat_build(dataSet);
 
 % Export the dataset
-dat_export(dataSet);
+dataSet=dat_export(dataSet);
 
 % Plot part of the exported dataset
 dat_plot_exported(dataSet);
