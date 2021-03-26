@@ -74,14 +74,13 @@ function dataSet=dat_build(dataSet)
     dataSet.motionMatrix=zeros(numViewPorts,numViewPorts,4);
     for i=1:numViewPorts-1
         iPose=dataSet.viewPortList(i).thePose;
+        iPoseInv=invert_reference(iPose);
         iAltitude=dataSet.viewPortList(i).theAltitude;
         for j=i+1:numViewPorts
             jPose=dataSet.viewPortList(j).thePose;
             jAltitude=dataSet.viewPortList(j).theAltitude;
-            ijMotion=compose_references(invert_reference(iPose),jPose);
+            ijMotion=compose_references(iPoseInv,jPose);
             jiMotion=invert_reference(ijMotion);
-            ijMotion(3,1)=normalize_angles(ijMotion(3,1));
-            jiMotion(3,1)=normalize_angles(jiMotion(3,1));
             ijMotion=[ijMotion;jAltitude-iAltitude];
             jiMotion=[jiMotion;iAltitude-jAltitude];
             dataSet.motionMatrix(i,j,:)=ijMotion;
@@ -91,6 +90,7 @@ function dataSet=dat_build(dataSet)
             pbr_update(i,numViewPorts-1);
         end
     end
+    dataSet.motionMatrix(:,:,3)=normalize_angles(dataSet.motionMatrix(:,:,3));
     pbr_end('');
 
     % Compute odometry
